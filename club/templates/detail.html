@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <h1>{{freepost.title}}</h1>
+    <br>
+    소개: {{freepost.body}}
+    <br>
+    인원수: {{freepost.people}}
+</div>
+<div>
+    <br>
+    <button type="submit"><a href = "{% url 'edit' freepost.id %}"?>수정</a></button>
+    <button type="submit"><a href = "{% url 'delete' freepost.id %}">삭제</a></button>
+</div>
+<div>
+    <br>
+    <button type="submit"><a href = "{% url 'home' %}">홈</a></button>
+</div>
+<div>
+    <h3>댓글 목록</h3>
+    {% for comment in freepost.comment_set.all %}
+        <p>댓글: {{comment.comment}}</p>
+        <p>작성 시간: {{comment.time}}</p>
+        <br>
+    {% endfor %}
+    <br>
+    <form action = "{% url 'comment' freepost.id %}" method = "POST">
+        {% csrf_token %}
+        댓글 입력: <input type="text" name="comment"> <br/>
+        <br>
+        <input type="submit" value="작성">
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>동아리 수정</h1>
+
+<form action="{% url 'update' freepost.id %}" method="POST">
+    {% csrf_token %}
+    <p>이름: <input type="text" name="title" value="{{freepost.title}}"></p>
+    소개: <textarea name="body" cols="30" rows="10">{{freepost.body}}</textarea>
+    <p>인원수: <input type="number" name="people" value="{{freepost.people}}"></p>
+    <button type="submit">완료</button>
+</form>
+
+{% endblock %}
